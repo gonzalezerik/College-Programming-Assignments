@@ -40,7 +40,7 @@ public class DataAnalyze1 {
 				}
 				System.out.println();
 			}
-			System.out.print("\t--------------------------------------------------");
+			System.out.print("\t----------------------------------------------------------------------------");
 			System.out.print("\nAverages: \t\t");
 			float total = 0;
 
@@ -64,7 +64,6 @@ public class DataAnalyze1 {
 				if (avg[i]< min)
 					min = avg[i];
 			}
-			
 			System.out.println();
 			System.out.println();
 			System.out.println("Min Average: " + min);
@@ -82,14 +81,3 @@ public class DataAnalyze1 {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
