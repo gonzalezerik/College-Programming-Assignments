@@ -14,7 +14,6 @@ public class DataAnalyze1 {
 		float[] avg = new float[4];
 		float min = 0, max = 0;
 
-
 		if (sampSize<=0)
 			System.out.print("No data to analyze. Ending program.");
 
