@@ -52,17 +52,15 @@ public class Shop {
 	public static int setUp(int numItems) {
 		numItems = 0;
 		Scanner input = new Scanner(System.in);
-		System.out.println("\n");
 
 		System.out.print("Please enter the number of items to setup shop: ");
 		numItems = input.nextInt();
+		System.out.print("\n");
 		return numItems;
 	}
 
 	public static String enterNames(int i) {
 		Scanner input = new Scanner(System.in);
-
-
 		System.out.print("Enter the name of the " + numSuffix(i + 1) + " product: ");
 		String names = input.next();
 		return names;
@@ -115,12 +113,12 @@ public class Shop {
 		return total;	
 	}
 
-	public static void checkout(double subTotal, int items, Double[] numPack, Double[] price2, Double[] pack2,String[] names2) {
+	public static void checkout(double subTotal, int items, Double[] numPack, Double[] price2, Double[] pack2,String[] names2, double addDis, double addRate) {
 		Double[] newTotal = new Double[items];
 		double total = 0;
 		int count = 0;
 
-		System.out.println("Original Sub Total: \t$" + subTotal);
+		System.out.println("Original Sub Total: \t\t$" + subTotal);
 
 
 		/*for (int i = 0; i < items; i++) {
@@ -132,34 +130,37 @@ public class Shop {
 			}
 		}*/
 		int count2 = 0;
-		for(int i = 0; i < items; i++) {
-			for (int j = 0; j < numPack[i]; j++) {
-			if (pack2[i] < j) {
-				count++;
-			}
-			}
-		}
-		
-	
 
-		/*for (int i = 0; i < items; i++){
-			for(int j = 0; j < numPack[i];j++) {
-					if (numPack[i]!= 0) {
-						if(pack2[i] % i == 0) {
-							count++;
-						}
-
-						newTotal[i] = (count * price2[i]);
-						System.out.println("newTotal: " + newTotal[i]);
-						total += newTotal[i];
-						System.out.println("total: " + total);
-
+		for (int i = 0; i < items; i++) {
+			if(numPack[i] != 0) {
+				for (int j = 0; j < numPack[i]; j++) {
+					if (count == pack2[i]) {
+						count2++;
+						count = 0;
 					}
+					count++;
 				}
-			}
-			*/
+			}	
+			count2 -= 1;
+			total += (count2 * price2[i]);
+			count2 = 0;
+		}
 
-		System.out.println("Special Discounts: \t$-" + count);
+		System.out.println("Special Discounts: \t\t$-" + total);
+		double newSub = 0;
+		newSub = subTotal - total;
+		System.out.println("New Sub Total: \t\t\t$" + newSub);
+		if (newSub >= addDis) {
+			addRate = addRate * 100;
+			System.out.print("Additional " + (int)addRate + "% Discount: \t-$");
+			addRate = newSub * (addRate / 100);
+			System.out.println(addRate);
+			total = (newSub - addRate);
+		}
+		else {
+			System.out.println("You did not qualify for an additional discount");
+		}
+		System.out.println("Final Sub Total: \t\t$" + total);
 	}
 
 
@@ -200,7 +201,7 @@ public class Shop {
 
 				}
 
-
+				System.out.print("\n");
 				System.out.print("Enter the dollar amount to qualify for Additional Discount (or 0 if none offered): ");
 				addDis = input.nextDouble();
 
@@ -229,7 +230,7 @@ public class Shop {
 				subTotal = items(items, names2, price2, pack2,numPack);
 				break;
 			case 4:
-				checkout(subTotal, items, numPack, price2, pack2,names2);
+				checkout(subTotal, items, numPack, price2, pack2,names2, addDis, addRate);
 				count = 4;
 				break;
 			}
@@ -241,6 +242,7 @@ public class Shop {
 	}
 
 }
+
 /*
  * enterNames(numItems, names,price,pack);
 
